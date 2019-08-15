@@ -2,10 +2,14 @@ const express = require('express')
 const server = express()
 const path = require('path')
 
-server.use(express.static(path.resolve(__dirname, 'build')))
+const buildPath = path.resolve(__dirname, 'build')
 
-server.listen(process.env.PORT, () => {
+server.use(express.static(buildPath))
+
+const port = process.env.PORT || 3000
+
+server.listen(port, () => {
     console.log("Server started!")
     if (process.env.NODE_ENV !== 'production')
-    console.log(`Port: ${process.env.PORT}`)
+    console.log(`Port: ${port}`)
 })

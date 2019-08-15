@@ -24,6 +24,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
+  circularProgress: {
+    marginLeft: 'auto',
+    marginTop: 'auto'
+  },
   control: {
     padding: theme.spacing(2),
   },
@@ -55,13 +59,15 @@ function Collage() {
     evt.preventDefault()
     setState({ ...state, loading: true })
     const { user, height, width } = state
-    const collage = await getCollage(user, height,  width)
+    const collage = await getCollage(user, height, width)
     setState({ ...state, collage, loading: false })
   }
 
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.value });
   };
+
+  const classes = useStyles()
 
   const [state, setState] = React.useState({
     user: '',
@@ -73,49 +79,74 @@ function Collage() {
 
   const b64 = !!state.collage ? new Buffer(state.collage).toString('base64') : null
   const mimeType = 'image/png'
-  
-  const classes = useStyles()
+
+  const LoadingSpinner = (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: '100vh' }}
+    >
+      <Grid item xs={4} />
+      <Grid item xs={4}>
+        <CircularProgress className={classes.circularProgress} size={80} color="primary" />
+      </Grid>
+      <Grid item xs={4} />
+    </Grid>
+  )
+
   return (
     <React.Fragment>
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={4}>
           <Paper className={classes.paper}>
             <form onSubmit={onSubmit}>
-              <TextField
-                id="user"
-                label="Last.fm User"
-                className={classes.textField}
-                value={state.user}
-                onChange={handleChange('user')}
-                margin="normal"
-              />
-              <TextField
-                id="height"
-                label="Altura"
-                type="number"
-                className={classes.textField}
-                value={state.height}
-                onChange={handleChange('height')}
-                margin="normal"
-              />
-              <TextField
-                id="width"
-                label="Largura"
-                type="number"
-                className={classes.textField}
-                value={state.width}
-                onChange={handleChange('width')}
-                margin="normal"
-              />
-
-              <Button type="submit" color="primary">Submit</Button>
+              <Grid container spacing={2} direction="column">
+                <Grid item xs={3}>
+                  <TextField
+                    id="user"
+                    label="Last.fm User"
+                    className={classes.textField}
+                    value={state.user}
+                    onChange={handleChange('user')}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    id="height"
+                    label="Height"
+                    type="number"
+                    className={classes.textField}
+                    value={state.height}
+                    onChange={handleChange('height')}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    id="width"
+                    label="Width"
+                    type="number"
+                    className={classes.textField}
+                    value={state.width}
+                    onChange={handleChange('width')}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <Button variant="outlined" type="submit" color="primary">Submit</Button>
+                </Grid>
+              </Grid>
             </form>
           </Paper>
         </Grid>
         <Grid item xs={8}>
           <Paper className={classNames(classes.paper, classes.collagePaper)}>
             {
-              state.loading ? <CircularProgress size={80} color="primary" /> : (<img src={!!b64 ? `data:${mimeType};base64,${b64}` : null} />)
+              state.loading ? (LoadingSpinner) : (<img src={!!b64 ? `data:${mimeType};base64,${b64}` : null} />)
             }
           </Paper>
         </Grid>
