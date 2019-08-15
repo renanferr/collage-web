@@ -3,12 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.3.2",
+    "@material-ui/icons": "^4.2.1",
+    "classnames": "^2.2.6",
+    "history": "^4.9.0",
+    "lodash": "^4.17.15",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "redux": "^4.0.4",
+    "request": "^2.88.0",
+    "typeface-roboto": "^0.0.75"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node src",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
