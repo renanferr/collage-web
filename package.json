@@ -18,12 +18,11 @@
     "react-scripts": "3.1.1",
     "redux": "^4.0.4",
     "request": "^2.88.0",
-    "serve": "^11.1.0",
     "typeface-roboto": "^0.0.75"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "./node_modules/serve/bin/serve.js -s build",
+    "start": "node server",
     "prestart": "npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test",
