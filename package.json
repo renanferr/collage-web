@@ -23,10 +23,10 @@
   "scripts": {
     "dev": "react-scripts start",
     "start": "node server",
-    "prestart": "yarn build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
